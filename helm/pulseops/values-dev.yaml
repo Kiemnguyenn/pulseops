@@ -1,0 +1,11 @@
+# Development environment overrides
+replicaCount: 1
+environment: "development"
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 200m
+    memory: 256Mi

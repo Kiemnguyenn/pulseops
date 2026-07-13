@@ -1,0 +1,79 @@
+name: pulseops-monitor
+version: '3.8'
+
+networks:
+  pulseops-net:
+    external: true
+    name: pulseops_pulseops-net
+
+services:
+  # 1. PROMETHEUS
+  prometheus:
+    image: prom/prometheus:v2.45.0
+    container_name: prometheus_core
+    ports:
+      - "9090:9090"
+    volumes:
+      - ../monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - pulseops-net
+
+  # 2. GRAFANA
+  grafana:
+    image: grafana/grafana:10.0.3
+    container_name: grafana_dashboard
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=${GRAFANA_ADMIN_USER}
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_ADMIN_PASSWORD}
+    depends_on:
+      - prometheus
+    networks:
+      - pulseops-net
+
+  # 3. ALERTMANAGER
+  alertmanager:
+    image: prom/alertmanager:v0.25.0
+    container_name: alertmanager
+    ports:
+      - "9093:9093"
+    networks:
+      - pulseops-net
+
+  # 4. LOKI
+  loki:
+    image: grafana/loki:2.8.2
+    container_name: loki_logger
+    ports:
+      - "3100:3100"
+    command: -config.file=/etc/loki/local-config.yaml
+    networks:
+      - pulseops-net
+
+  # 5. PROMTAIL
+  promtail:
+    image: grafana/promtail:2.8.2
+    container_name: promtail_agent
+    volumes:
+      - /var/log:/var/log
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+    command: -config.file=/etc/promtail/config.yml
+    depends_on:
+      - loki
+    networks:
+      - pulseops-net
+
+  # 6. CADVISOR
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:v0.47.0
+    container_name: cadvisor
+    ports:
+      - "8085:8080"
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+    networks:
+      - pulseops-net

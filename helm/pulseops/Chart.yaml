@@ -1,0 +1,9 @@
+apiVersion: v2
+name: pulseops
+description: Helm chart for PulseOps Data Platform - DataOps Core
+type: application
+version: 0.1.0
+appVersion: "1.0.0"
+maintainers:
+  - name: "Nguyen Trang Chi Kiem"
+    email: "kiem.dataops@example.com"

@@ -1,0 +1,11 @@
+# Production environment overrides (High performance)
+replicaCount: 3
+environment: "production"
+
+resources:
+  requests:
+    cpu: 1000m
+    memory: 1Gi
+  limits:
+    cpu: 2000m
+    memory: 2Gi
