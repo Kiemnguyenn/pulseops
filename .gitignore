@@ -5,3 +5,6 @@ __pycache__/
 .venv/
 venv/
 *.log
+
+infra/terraform/.terraform/
+infra/terraform/terraform.tfstate*

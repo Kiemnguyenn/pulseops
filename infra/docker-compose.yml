@@ -4,13 +4,16 @@ version: '3.8'
 
 networks:
   pulseops-net:
-    driver: bridge
-
+    external: true
 volumes:
   postgres_data:
+    external: true
   minio_data:
+    external: true
   zookeeper_data:
+    external: true
   kafka_data:
+    external: true
 
 services:
   # 1. POSTGRESQL 16
