@@ -8,5 +8,4 @@ pytest
 pre-commit
 psycopg2-binary
 PyYAML
-apache-airflow==2.8.2
 dbt-postgres
