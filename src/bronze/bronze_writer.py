@@ -40,8 +40,10 @@ INSERT_SQL = """
     ON CONFLICT (transaction_id) DO NOTHING;
 """
 
+
 def parse_message(raw_value: bytes) -> dict:
     return json.loads(raw_value.decode("utf-8"))
+
 
 def insert_transaction(cursor, txn: dict):
     cursor.execute(
