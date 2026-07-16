@@ -1,0 +1,14 @@
+name: 'pulseops_dbt'
+version: '1.0.0'
+config-version: 2
+
+profile: 'pulseops'
+
+model-paths: ["models"]
+
+models:
+  pulseops_dbt:
+    staging:
+      +materialized: view
+    marts:
+      +materialized: table

@@ -8,3 +8,6 @@ venv/
 
 infra/terraform/.terraform/
 infra/terraform/terraform.tfstate*
+
+dbt/target/
+dbt/logs/
