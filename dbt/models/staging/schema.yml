@@ -1,0 +1,9 @@
+models:
+  - name: stg_transactions
+    columns:
+      - name: transaction_id
+        tests: [not_null, unique]
+      - name: status
+        tests:
+          - accepted_values:
+              values: ['COMPLETED', 'FAILED']
