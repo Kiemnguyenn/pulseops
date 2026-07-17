@@ -11,3 +11,6 @@ infra/terraform/terraform.tfstate*
 
 dbt/target/
 dbt/logs/
+
+dbt/.user.yml
+logs/
