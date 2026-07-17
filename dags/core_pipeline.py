@@ -16,7 +16,9 @@ def check_kafka_topic_exists(**context):
     admin_client = AdminClient({"bootstrap.servers": KAFKA_BOOTSTRAP_SERVERS})
     topics = admin_client.list_topics(timeout=10).topics
     if "txn_raw" not in topics:
-        raise Exception(f"Kafka topic 'txn_raw' not found. Available: {list(topics.keys())}")
+        raise Exception(
+            f"Kafka topic 'txn_raw' not found. Available: {list(topics.keys())}"
+        )
     logging.info(f"Kafka topic 'txn_raw' found. All topics: {list(topics.keys())}")
 
 
