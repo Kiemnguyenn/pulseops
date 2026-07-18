@@ -52,7 +52,9 @@ def get_dbt_test_pass_rate() -> float:
         results = json.load(f)
 
     test_results = [
-        r for r in results.get("results", []) if r.get("unique_id", "").startswith("test.")
+        r
+        for r in results.get("results", [])
+        if r.get("unique_id", "").startswith("test.")
     ]
     if not test_results:
         return 1.0
