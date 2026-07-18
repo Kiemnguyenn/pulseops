@@ -14,3 +14,5 @@ dbt/logs/
 
 dbt/.user.yml
 logs/
+
+monitoring/alertmanager.yml
