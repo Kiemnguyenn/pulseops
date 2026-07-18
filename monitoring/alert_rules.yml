@@ -1,0 +1,18 @@
+groups:
+  - name: pulseops_alerts
+    rules:
+      - alert: ContainerDown
+        expr: absent(container_last_seen{id="/docker/be858a0f2795592394eec7735b5f9331b4e5e3a396ff78f17a22ef92e5b76509"})
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Kafka broker container is down"
+
+      - alert: DbtTestFailed
+        expr: dbt_test_pass_rate < 1
+        for: 15s
+        labels:
+          severity: critical
+        annotations:
+          summary: "dbt test failed - data quality check did not pass"
